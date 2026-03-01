@@ -227,15 +227,17 @@ def tracking_pixel(click_id: str):
 
 def main():
     """Start tracking server."""
+    import os
+    port = int(os.environ.get('PORT', 9000))
+
     print("=" * 60)
     print("SELF-HOSTED TRACKER")
     print("=" * 60)
-    print("\n🔍 Tracking clicks and conversions...")
-    print("📊 Stats: http://localhost:9000/api/stats")
-    print("🏆 Winners: http://localhost:9000/api/winners")
+    print(f"\n🔍 Tracking clicks and conversions...")
+    print(f"📊 Running on port {port}")
     print("\n✅ Ready to track!\n")
 
-    app.run(host='0.0.0.0', port=9000, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=False)
 
 
 if __name__ == "__main__":
