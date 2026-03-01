@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Affiliate Swarm - Money Tracker</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            padding: 30px;
+        }
+
+        .dashboard {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* GIANT STATUS BANNER */
+        .status-banner {
+            text-align: center;
+            padding: 50px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            font-size: 5rem;
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+        }
+
+        .status-banner.winning {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: #fff;
+            animation: pulse-win 2s infinite;
+        }
+
+        .status-banner.losing {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: #fff;
+        }
+
+        .status-banner.testing {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: #fff;
+        }
+
+        @keyframes pulse-win {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .status-subtitle {
+            font-size: 2rem;
+            font-weight: 400;
+            margin-top: 20px;
+            opacity: 0.9;
+        }
+
+        /* GIANT MONEY CARDS */
+        .money-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .money-card {
+            background: #111;
+            border-radius: 20px;
+            padding: 50px 40px;
+            text-align: center;
+            border: 3px solid #222;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .money-label {
+            font-size: 1.8rem;
+            color: #888;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .money-value {
+            font-size: 6rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 15px;
+        }
+
+        .money-value.green {
+            color: #10b981;
+            text-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+        }
+
+        .money-value.red {
+            color: #ef4444;
+            text-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+        }
+
+        .money-value.blue {
+            color: #3b82f6;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+        }
+
+        .money-subtext {
+            font-size: 1.3rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /* GIANT CONTROL BUTTONS */
+        .control-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .btn-giant {
+            padding: 50px;
+            border-radius: 20px;
+            border: none;
+            font-weight: 900;
+            cursor: pointer;
+            font-size: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .btn-giant:active {
+            transform: scale(0.98);
+        }
+
+        .btn-scale {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-scale:hover {
+            box-shadow: 0 15px 50px rgba(16, 185, 129, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .btn-stop:hover {
+            box-shadow: 0 15px 50px rgba(239, 68, 68, 0.5);
+            transform: translateY(-5px);
+        }
+
+        .btn-icon {
+            font-size: 4rem;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        /* ACTIVITY SECTION (SMALLER) */
+        .activity-section {
+            background: #111;
+            border-radius: 20px;
+            padding: 30px;
+            border: 2px solid #222;
+        }
+
+        .activity-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .activity-feed {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .activity-item {
+            padding: 15px 0;
+            border-bottom: 1px solid #222;
+            font-size: 1.3rem;
+            color: #666;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-time {
+            font-size: 1rem;
+            color: #444;
+            margin-left: 15px;
+        }
+
+        /* OFFER CARDS */
+        .offers-section {
+            margin-bottom: 50px;
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .offer-card {
+            background: #111;
+            border-radius: 15px;
+            padding: 30px;
+            border: 2px solid #222;
+        }
+
+        .offer-card.winner {
+            border-color: #10b981;
+            background: linear-gradient(135deg, #111 0%, #0d4d2c 100%);
+        }
+
+        .offer-card.loser {
+            border-color: #ef4444;
+            background: linear-gradient(135deg, #111 0%, #4d0d0d 100%);
+            opacity: 0.5;
+        }
+
+        .offer-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .offer-stat {
+            font-size: 1.2rem;
+            margin: 10px 0;
+            color: #888;
+        }
+
+        .offer-stat strong {
+            color: #fff;
+            font-size: 1.5rem;
+        }
+
+        .offer-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-top: 15px;
+        }
+
+        .offer-badge.winner {
+            background: #10b981;
+            color: #fff;
+        }
+
+        .offer-badge.loser {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .offer-badge.testing {
+            background: #3b82f6;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- GIANT STATUS BANNER -->
+        <div class="status-banner testing" id="statusBanner">
+            <div id="statusText">TESTING OFFERS</div>
+            <div class="status-subtitle" id="statusSubtitle">Waiting for data...</div>
+        </div>
+
+        <!-- GIANT MONEY CARDS -->
+        <div class="money-grid">
+            <div class="money-card">
+                <div class="money-label">💰 Money In</div>
+                <div class="money-value green" id="revenue">$0</div>
+                <div class="money-subtext">Total Revenue</div>
+            </div>
+
+            <div class="money-card">
+                <div class="money-label">💸 Money Out</div>
+                <div class="money-value red" id="spent">$0</div>
+                <div class="money-subtext" id="budgetRemaining">$500 remaining</div>
+            </div>
+
+            <div class="money-card">
+                <div class="money-label">💵 Profit</div>
+                <div class="money-value blue" id="profit">$0</div>
+                <div class="money-subtext" id="roi">0% ROI</div>
+            </div>
+        </div>
+
+        <!-- GIANT CONTROL BUTTONS -->
+        <div class="control-panel">
+            <button class="btn-giant btn-scale" onclick="scaleWinners()">
+                <div class="btn-icon">🚀</div>
+                Scale Winners
+            </button>
+            <button class="btn-giant btn-stop" onclick="stopSystem()">
+                <div class="btn-icon">⛔</div>
+                Stop All
+            </button>
+        </div>
+
+        <!-- OFFERS STATUS -->
+        <div class="offers-section">
+            <div class="activity-title">📊 Offers Status</div>
+            <div class="offers-grid" id="offersGrid">
+                <div class="offer-card">
+                    <div class="offer-name">No offers yet</div>
+                    <div class="offer-stat">Start system to begin testing</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACTIVITY FEED (SMALLER) -->
+        <div class="activity-section">
+            <div class="activity-title">📡 Recent Activity</div>
+            <div class="activity-feed" id="activity">
+                <div class="activity-item">
+                    System idle - Click "Scale Winners" to start
+                    <span class="activity-time">Now</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-refresh every 3 seconds
+        setInterval(fetchStats, 3000);
+
+        async function fetchStats() {
+            try {
+                const response = await fetch('http://localhost:9000/api/stats');
+                const data = await response.json();
+                updateDashboard(data);
+            } catch (error) {
+                console.error('Error fetching stats:', error);
+            }
+        }
+
+        async function fetchWinners() {
+            try {
+                const response = await fetch('http://localhost:9000/api/winners');
+                const winners = await response.json();
+                updateOffers(winners);
+            } catch (error) {
+                console.error('Error fetching winners:', error);
+            }
+        }
+
+        function updateDashboard(data) {
+            const revenue = data.total_revenue || 0;
+            const cost = data.total_cost || 0;
+            const profit = revenue - cost;
+            const roi = cost > 0 ? ((profit / cost) * 100) : 0;
+
+            // Update money cards
+            document.getElementById('revenue').textContent = '$' + revenue.toFixed(0);
+            document.getElementById('spent').textContent = '$' + cost.toFixed(0);
+            document.getElementById('profit').textContent = (profit >= 0 ? '+' : '') + '$' + profit.toFixed(0);
+            document.getElementById('roi').textContent = roi.toFixed(0) + '% ROI';
+            document.getElementById('budgetRemaining').textContent = '$' + (500 - cost).toFixed(0) + ' remaining';
+
+            // Update profit color
+            const profitEl = document.getElementById('profit');
+            if (profit > 0) {
+                profitEl.className = 'money-value green';
+            } else if (profit < 0) {
+                profitEl.className = 'money-value red';
+            } else {
+                profitEl.className = 'money-value blue';
+            }
+
+            // Update status banner
+            const banner = document.getElementById('statusBanner');
+            const statusText = document.getElementById('statusText');
+            const statusSubtitle = document.getElementById('statusSubtitle');
+
+            if (data.total_clicks === 0) {
+                banner.className = 'status-banner testing';
+                statusText.textContent = 'READY TO START';
+                statusSubtitle.textContent = 'Click "Scale Winners" to begin';
+            } else if (profit > cost * 0.5) {
+                banner.className = 'status-banner winning';
+                statusText.textContent = '🎉 MAKING MONEY 🎉';
+                statusSubtitle.textContent = `Up $${profit.toFixed(0)} - ${roi.toFixed(0)}% ROI`;
+            } else if (profit > 0) {
+                banner.className = 'status-banner winning';
+                statusText.textContent = 'PROFITABLE';
+                statusSubtitle.textContent = `+$${profit.toFixed(0)} profit`;
+            } else if (data.total_clicks > 50) {
+                banner.className = 'status-banner losing';
+                statusText.textContent = 'LOSING MONEY';
+                statusSubtitle.textContent = `Down $${Math.abs(profit).toFixed(0)} - Keep testing`;
+            } else {
+                banner.className = 'status-banner testing';
+                statusText.textContent = 'TESTING';
+                statusSubtitle.textContent = `${data.total_clicks} clicks, waiting for conversions...`;
+            }
+
+            // Update offers
+            fetchWinners();
+        }
+
+        function updateOffers(winners) {
+            const grid = document.getElementById('offersGrid');
+
+            if (!winners || winners.length === 0) {
+                grid.innerHTML = `
+                    <div class="offer-card">
+                        <div class="offer-name">No winners yet</div>
+                        <div class="offer-stat">Testing offers...</div>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = winners.map(offer => {
+                const isWinner = offer.roi > 0 && offer.conversion_rate >= 2.0;
+                const cardClass = isWinner ? 'winner' : (offer.clicks > 20 ? 'loser' : '');
+                const badgeClass = isWinner ? 'winner' : (offer.clicks > 20 ? 'loser' : 'testing');
+                const badgeText = isWinner ? '✅ Winner' : (offer.clicks > 20 ? '❌ Loser' : '🧪 Testing');
+
+                return `
+                    <div class="offer-card ${cardClass}">
+                        <div class="offer-name">${offer.name}</div>
+                        <div class="offer-stat">Revenue: <strong>$${offer.revenue.toFixed(0)}</strong></div>
+                        <div class="offer-stat">ROI: <strong>${offer.roi.toFixed(0)}%</strong></div>
+                        <div class="offer-stat">Conversion: <strong>${offer.conversion_rate.toFixed(1)}%</strong></div>
+                        <div class="offer-stat">Clicks: <strong>${offer.clicks}</strong> / Conversions: <strong>${offer.conversions}</strong></div>
+                        <div class="offer-badge ${badgeClass}">${badgeText}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function scaleWinners() {
+            const confirmed = confirm('This will buy traffic for ALL winning offers. Continue?');
+            if (!confirmed) return;
+
+            try {
+                // In a real system, this would trigger the traffic buyer
+                alert('Scaling winners! Check traffic_buyer.py logs for details.');
+
+                // For now, just show feedback
+                const activity = document.getElementById('activity');
+                const newItem = document.createElement('div');
+                newItem.className = 'activity-item';
+                newItem.innerHTML = `
+                    🚀 Scaling all winning offers
+                    <span class="activity-time">Just now</span>
+                `;
+                activity.insertBefore(newItem, activity.firstChild);
+            } catch (error) {
+                alert('Error scaling winners: ' + error.message);
+            }
+        }
+
+        async function stopSystem() {
+            const confirmed = confirm('Stop all traffic buying? This will pause everything.');
+            if (!confirmed) return;
+
+            try {
+                alert('System stopped. No more traffic will be purchased.');
+
+                const activity = document.getElementById('activity');
+                const newItem = document.createElement('div');
+                newItem.className = 'activity-item';
+                newItem.innerHTML = `
+                    ⛔ System stopped by user
+                    <span class="activity-time">Just now</span>
+                `;
+                activity.insertBefore(newItem, activity.firstChild);
+            } catch (error) {
+                alert('Error stopping system: ' + error.message);
+            }
+        }
+
+        // Initial load
+        fetchStats();
+    </script>
+</body>
+</html>

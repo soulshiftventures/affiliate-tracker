@@ -1,0 +1,34 @@
+{
+  "offers": [
+    {
+      "id": "offer_coaching",
+      "name": "Coaching Program (Example)",
+      "url": "REPLACE_WITH_YOUR_AFFILIATE_LINK",
+      "commission": 497
+    },
+    {
+      "id": "offer_high_ticket_course",
+      "name": "High-Ticket Course (Example)",
+      "url": "REPLACE_WITH_YOUR_AFFILIATE_LINK",
+      "commission": 300
+    },
+    {
+      "id": "offer_software_tool",
+      "name": "Software Tool (Example)",
+      "url": "REPLACE_WITH_YOUR_AFFILIATE_LINK",
+      "commission": 150
+    },
+    {
+      "id": "offer_membership",
+      "name": "Membership Site (Example)",
+      "url": "REPLACE_WITH_YOUR_AFFILIATE_LINK",
+      "commission": 97
+    },
+    {
+      "id": "offer_ebook_bundle",
+      "name": "Ebook Bundle (Example)",
+      "url": "REPLACE_WITH_YOUR_AFFILIATE_LINK",
+      "commission": 47
+    }
+  ]
+}

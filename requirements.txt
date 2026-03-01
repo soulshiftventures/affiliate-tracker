@@ -1,0 +1,14 @@
+# Core dependencies (all free tools)
+anthropic==0.25.0           # Claude API
+praw==7.7.1                 # Reddit automation
+playwright==1.44.0          # Browser automation (Twitter, TikTok)
+pyyaml==6.0.1              # Config loading
+requests==2.31.0           # HTTP requests
+beautifulsoup4==4.12.3     # Web scraping
+flask==3.0.2               # Dashboard
+schedule==1.2.1            # Task scheduling
+python-dotenv==1.0.1       # Environment variables
+
+# Optional but recommended
+selenium==4.18.1           # Backup browser automation
+pandas==2.2.1              # Data analysis

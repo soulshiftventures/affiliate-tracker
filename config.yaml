@@ -1,0 +1,81 @@
+# Affiliate Swarm Configuration
+# Budget: $100 (traffic only)
+# Tools: ALL FREE
+
+# Budget allocation
+budget:
+  total: 100
+  solo_ads: 80      # Main traffic source
+  testing: 20       # Test different offers
+
+# Affiliate networks (instant payout priority)
+networks:
+  jvzoo:
+    enabled: true
+    min_commission: 100  # Only promote $100+ offers
+    payout_speed: instant
+
+  clickbank:
+    enabled: true
+    min_gravity: 50      # Proven sellers only
+    min_commission: 100
+
+  warriorplus:
+    enabled: true
+    payout_speed: instant
+
+# Content generation (FREE)
+content:
+  claude_api_key: ""     # Free tier: 100K tokens/day
+  posts_per_day: 500
+  formats:
+    - reddit_post
+    - twitter_thread
+    - tiktok_script
+    - medium_article
+
+# Distribution (FREE tools)
+distribution:
+  tiktok:
+    enabled: true
+    videos_per_day: 20
+    uploader: "playwright"  # wkaisertexas method
+
+  reddit:
+    enabled: true
+    posts_per_day: 50
+    method: "praw"
+
+  twitter:
+    enabled: true
+    threads_per_day: 30
+    method: "playwright"  # Free, no API cost
+
+  medium:
+    enabled: true
+    articles_per_day: 5
+
+# Traffic sources
+traffic:
+  solo_ads:
+    providers:
+      - udimi_com
+      - trafficforme
+    budget_per_test: 20
+    clicks_per_dollar: 0.5  # $1 = 2 clicks
+
+# Tracking
+tracking:
+  method: "self_hosted"  # Free
+  conversion_pixel: true
+
+# Dashboard
+dashboard:
+  port: 8080
+  update_interval: 300  # 5 minutes
+
+# Automation
+automation:
+  run_24_7: true
+  kill_losers_after_hours: 24
+  scale_winners_multiplier: 10

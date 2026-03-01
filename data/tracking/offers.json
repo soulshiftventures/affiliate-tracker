@@ -1,0 +1,62 @@
+{
+  "offer_coaching": {
+    "name": "Coaching Program (Example)",
+    "url": "YOUR_AFFILIATE_LINK_HERE",
+    "commission": 497,
+    "network": "jvzoo",
+    "payout_type": "instant",
+    "clicks": 0,
+    "conversions": 0,
+    "revenue": 0,
+    "cost": 0,
+    "roi": 0
+  },
+  "offer_high_ticket_course": {
+    "name": "High-Ticket Course (Example)",
+    "url": "YOUR_AFFILIATE_LINK_HERE",
+    "commission": 300,
+    "network": "jvzoo",
+    "payout_type": "instant",
+    "clicks": 0,
+    "conversions": 0,
+    "revenue": 0,
+    "cost": 0,
+    "roi": 0
+  },
+  "offer_software_tool": {
+    "name": "Software Tool (Example)",
+    "url": "YOUR_AFFILIATE_LINK_HERE",
+    "commission": 150,
+    "network": "jvzoo",
+    "payout_type": "instant",
+    "clicks": 0,
+    "conversions": 0,
+    "revenue": 0,
+    "cost": 0,
+    "roi": 0
+  },
+  "offer_membership": {
+    "name": "Membership Site (Example)",
+    "url": "YOUR_AFFILIATE_LINK_HERE",
+    "commission": 97,
+    "network": "clickbank",
+    "payout_type": "weekly",
+    "clicks": 0,
+    "conversions": 0,
+    "revenue": 0,
+    "cost": 0,
+    "roi": 0
+  },
+  "offer_ebook_bundle": {
+    "name": "Ebook Bundle (Example)",
+    "url": "YOUR_AFFILIATE_LINK_HERE",
+    "commission": 47,
+    "network": "jvzoo",
+    "payout_type": "instant",
+    "clicks": 0,
+    "conversions": 0,
+    "revenue": 0,
+    "cost": 0,
+    "roi": 0
+  }
+}
