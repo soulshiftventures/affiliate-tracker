@@ -1,9 +1,10 @@
 services:
   - type: web
-    name: affiliate-tracker
+    name: affiliate-tracker-live
     env: python
     buildCommand: pip install flask requests
     startCommand: python3 tracker.py
+    plan: free
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
